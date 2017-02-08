@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import appModules.SignInAction;
 import utility.Constant;
@@ -29,11 +30,11 @@ public class LoginIT {
 	@Before
 	public void setup() {
 		//given
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\Downloads\\chromedriver.exe");
+		/*System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\Downloads\\chromedriver.exe");
 		driver = new ChromeDriver();
-		/*System.setProperty("webdriver.gecko.driver", "C:\\Users\\User\\Downloads\\geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver", "C:\\Users\\User\\Downloads\\geckodriver.exe");*/
 		System.setProperty("webdriver.gecko.driver", "C:\\Users\\hstancheva\\geckodriver.exe");
-        WebDriver driver = new FirefoxDriver();*/
+        driver = new FirefoxDriver();
 		driver.get(Constant.LOGIN_PAGE);
 	}
 	/**
@@ -46,43 +47,45 @@ public class LoginIT {
 	public void testSuccessfulLoginAfterEnteringCorrectCredentials() {
 		//when
 		SignInAction.execute(driver, Constant.USERNAME, Constant.PASSWORD);
+		List<WebElement> h2 = driver.findElements(By.cssSelector("div#cssmenu h2"));
 		//then
-		assertEquals(driver.getTitle(), "Puffin");
+		assertEquals("Здравей!", h2.get(0).getText());
 	}
 	
 	@Test
 	public void testUnsuccessfulLoginAfterEnteringWrongCredentials() {
 		//when
 		SignInAction.execute(driver, Constant.USERNAME, "wrongPassword");
+		List<String> errors = SignInAction.getErrors(driver);
 		//then
-		assertEquals(driver.getTitle(), "Puffin");
+		assertEquals("Грешна парола", errors.get(1));
 	}
 	
 	@Test
 	public void testUnsuccessfulLoginAfterEnteringUsernameAndLeftPasswordFieldEmpty() {
 		//when
 		SignInAction.execute(driver, Constant.USERNAME, "");
-		List<WebElement> errors = driver.findElements(By.cssSelector("span.error"));
+		List<String> errors = SignInAction.getErrors(driver);
 		//then
-		assertEquals("Въведете парола", errors.get(1).getText());
+		assertEquals("Въведете парола", errors.get(1));
 	}
 	
 	@Test
 	public void testUnsuccessfulLoginUsernameAndPasswordFieldEmpty() {
 		//when
 		SignInAction.execute(driver, "", "");
-		List<WebElement> errors = driver.findElements(By.cssSelector("span.error"));
+		List<String> errors = SignInAction.getErrors(driver);
 		//then
-		assertEquals("Въведете потребителско име", errors.get(0).getText());
-		assertEquals("Въведете парола", errors.get(1).getText());
+		assertEquals("Въведете потребителско име", errors.get(0));
+		assertEquals("Въведете парола", errors.get(1));
 	}
 	@Test
 	public void testUnsuccessfulLoginWIthNonExistingUserAndProvidedPassword() {
 		//when
 		SignInAction.execute(driver, "nonexistingUser", "password");
-		List<WebElement> errors = driver.findElements(By.cssSelector("span.error"));
+		List<String> errors = SignInAction.getErrors(driver);
 		//then
-		assertEquals("Няма регистриран потребител с това име в системата", errors.get(0).getText());
+		assertEquals("Няма регистриран потребител с това име в системата", errors.get(0));
 		//assertEquals("Въведете парола", errors.get(1).getText());
 	}
 	
