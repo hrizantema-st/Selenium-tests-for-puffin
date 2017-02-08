@@ -8,31 +8,46 @@ import org.openqa.selenium.support.PageFactory;
 public class HomePage {
 	private WebDriver driver;
 
-	private static String PAGE_URL = "https://www.toptal.com";
+//	/private static String PAGE_URL = Constant.HOME_PAGE;
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
-		driver.get(PAGE_URL);
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath = "//a[@href='http://62.44.100.139/WEBTECH/www_7ed_referats/img/logout.png']")
-	private WebElement logoutButton;
-
-	@FindBy(xpath = "//a[@href='http://62.44.100.139/WEBTECH/www_7ed_referats/img/choose.png']")
+	@FindBy(xpath = "/html/body/div/div[1]/div[2]/ul/li[1]/a/center/div/span[1]/img")
 	private WebElement chooseReferat;
 
-	@FindBy(xpath = "//a[@href='http://62.44.100.139/WEBTECH/www_7ed_referats/img/upload.png']")
+	@FindBy(xpath = "/html/body/div/div[1]/div[2]/ul/li[2]/a/center/div/span[1]/img")
 	private WebElement uploadReferat;
 
-	@FindBy(xpath = "//a[@href='http://62.44.100.139/WEBTECH/www_7ed_referats/img/review.png']")
+	@FindBy(xpath = "/html/body/div/div[1]/div[2]/ul/li[3]/a/center/div/span[1]/img")
 	private WebElement makeRecension;
+	
+	@FindBy(xpath = "/html/body/div/div[1]/div[2]/ul/li[4]/a/center/div/span[1]/img")
+	private WebElement logoutButton;
 
-	@FindBy(xpath = "//a[@href='http://62.44.100.139/WEBTECH/www_7ed_referats/img/logo.png")
+	@FindBy(xpath = "/html/body/div/div[1]/div[1]/center/a/div/span[1]/img")
 	private WebElement logo;
 
 	public void clickOnLogoutButton() {
-		logoutButton.click();
+		this.logoutButton.click();
+	}
+	
+	public void clickOnChooseReferat() {
+		this.chooseReferat.click();
+	}
+	
+	public void clickOnUploadReferat() {
+		this.uploadReferat.click();
+	}
+	
+	public void clickOnMakeRecension() {
+		this.makeRecension.click();
+	}
+	
+	public void clickOnLogo() {
+		this.logo.click();
 	}
 	
 }

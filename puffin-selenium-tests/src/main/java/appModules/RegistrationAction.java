@@ -5,16 +5,16 @@ import org.openqa.selenium.WebDriver;
 import pageObjects.RegistrationPage;
 
 public class RegistrationAction {
-	public static void execute(final WebDriver driver, final String fn, final String username, final String password, final String email){
-		RegistrationPage.txtbxFN(driver).sendKeys(fn);
+	private WebDriver driver;
+	
+	public static void execute(final WebDriver driver, final String fn, final String name, final String pass, final String mail){
+		RegistrationPage regPage = new RegistrationPage(driver);
 		
-		RegistrationPage.txtbxUsername(driver).sendKeys(username);
-		 
-        RegistrationPage.txtbxPassword(driver).sendKeys(password);
-        
-        RegistrationPage.txtbxEmail(driver).sendKeys(email);
- 
-        RegistrationPage.btnRegistration(driver).click();
+		regPage.setFn(fn);
+		regPage.setName(name);
+		regPage.setpass(pass);
+		regPage.setMail(mail);
+		regPage.clickOnRegister();
  
      }
 }

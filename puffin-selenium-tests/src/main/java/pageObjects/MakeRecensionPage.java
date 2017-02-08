@@ -5,10 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class RegistrationPage {
+public class MakeRecensionPage {
 	private WebDriver driver;
 
-	public RegistrationPage(WebDriver driver) {
+	public MakeRecensionPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -24,10 +24,6 @@ public class RegistrationPage {
 
 	@FindBy(name = "mail")
 	private WebElement mail;
-	
-	/*@FindBy(css = "html body div.container div.content div.form_holder center span.error")
-	private WebElement error;*/
-
 
 	@FindBy(css = "html body div.container div.content div.form_holder form#myform a.btn.green")
 	private WebElement register;
