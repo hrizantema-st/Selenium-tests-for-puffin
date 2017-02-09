@@ -4,14 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import appModules.SignInAction;
 import utility.Constant;
@@ -24,32 +20,13 @@ import utility.Constant;
  */
 @Category(IntegrationTest.class)
 @SuppressWarnings({ "static-method", "nls" })
-public class LoginIT {
-	private static WebDriver driver;
+public class LoginIT extends BaseClassForIT {
 
-	@Before
-	public void setup() {
-		// given
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\User\\Downloads\\chromedriver.exe");
-		driver = new ChromeDriver();
-		/*
-		 * System.setProperty("webdriver.gecko.driver",
-		 * "C:\\Users\\User\\Downloads\\geckodriver.exe");
-		 */
-		/*
-		 * System.setProperty("webdriver.gecko.driver",
-		 * "C:\\Users\\hstancheva\\geckodriver.exe"); driver = new
-		 * FirefoxDriver();
-		 */
+	@Override
+	protected void customInitialization() {
 		driver.get(Constant.LOGIN_PAGE);
 	}
 
-	/**
-	 * This test performs scenario on the Login Page of Puffin After inserting
-	 * correct credentials(username and password) in the login form and after
-	 * clicking Login button this s should redirect us to the home page of
-	 * puffin
-	 */
 	@Test
 	public void testSuccessfulLoginAfterEnteringCorrectCredentials() {
 		// when
@@ -98,11 +75,6 @@ public class LoginIT {
 		// then
 		assertEquals("Няма регистриран потребител с това име в системата", errors.get(0));
 		// assertEquals("Въведете парола", errors.get(1).getText());
-	}
-
-	@After
-	public void cleanUp() {
-		driver.close();
 	}
 
 }
